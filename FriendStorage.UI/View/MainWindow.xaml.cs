@@ -1,14 +1,24 @@
 ﻿using System.Windows;
 using FriendStorage.UI.ViewModel;
+using System.ComponentModel;
 
 namespace FriendStorage.UI.View
 {
   public partial class MainWindow : Window
   {
-    public MainWindow(MainViewModel viewModel)
-    {
+        private MainViewModel _viewModel;
+
+        public MainWindow(MainViewModel viewModel)
+        {
       InitializeComponent();
-      DataContext = viewModel;
+            _viewModel = viewModel;
+            DataContext = _viewModel;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            _viewModel.OnClosing(e);
+        }
     }
-  }
 }
